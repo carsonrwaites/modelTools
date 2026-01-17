@@ -85,7 +85,7 @@ class ExploratoryDataAnalysis:
         if pd.api.types.is_numeric_dtype(target_data):
             unique_values = target_data.nunique()
             # If fewer than 20 unique values and all integers, likely classification
-            if unique_values < 20 and target_data.dropna().apply(float.is_integer).all():
+            if unique_values < 20 and target_data.dropna().apply(lambda x: float(x).is_integer()).all():
                 return 'classification'
             else:
                 return 'regression'
@@ -577,7 +577,7 @@ class ExploratoryDataAnalysis:
             report.append("WARNINGS")
             report.append("-" * 80)
             for warning in self.warnings:
-                report.append(f"!! {warning}")
+                report.append(f"! {warning}")
             report.append("")
 
         # Key findings
